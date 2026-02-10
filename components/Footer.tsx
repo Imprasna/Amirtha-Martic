@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Youtube, Instagram } from 'lucide-react';
+import Logo from '../assets/logo.png';
 
 const Footer: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const Footer: React.FC = () => {
           <div className="col-span-1 flex flex-col items-center">
             <div className="flex items-center gap-2 mb-6">
               <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-sm">
-                <img src="/assets/logo.png" alt="Amirtha Matriculation School logo" className="w-9 h-9 rounded" />
+                <img src={Logo} alt="Amirtha Matriculation School logo" className="w-9 h-9 rounded" />
               </div>
               <span className="text-xl font-800 tracking-tight text-white uppercase font-display">
                 Amirtha<span className="text-primary">School</span>
