@@ -77,7 +77,7 @@ const Gallery: React.FC = () => {
               <img src={img.src} alt={img.title} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-secondary/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-8 text-center">
                 <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                  <ZoomIn className="text-secondary" />
+                  <ZoomIn className="text-white" />
                 </div>
                 <p className="text-white font-800 text-xl">{img.title}</p>
               </div>
