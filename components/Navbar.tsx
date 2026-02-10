@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
+import Logo from '../assets/logo.png';
 
 const NAVBAR_LINKS = [
   { label: 'Academics', href: '/academics' },
@@ -35,7 +36,8 @@ const Navbar: React.FC = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center transition-transform group-hover:rotate-12 shadow-sm">
-            <span className="material-icons text-white">school</span>
+            {/* <span className="material-icons text-white">school</span> */}
+            <img src={Logo} alt="Amirtha Matriculation School logo" className="w-9 h-9 rounded" />
           </div>
           <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white uppercase font-display">
             Amirtha<span className="text-primary font-900">Matric</span>

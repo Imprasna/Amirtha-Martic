@@ -19,7 +19,7 @@ import {
 import { fadeIn, staggerContainer, scaleUp, floating, slideIn } from '../constants';
 
 const CAMPUS_LIFE_DATA = [
-  { tag: 'Arts', tagColor: 'bg-primary', title: 'Creative Expression', desc: 'Our students showcase their theatrical and artistic talents during the Annual Cultural week.', image: 'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?q=80&w=1000&auto=format&fit=crop' },
+  { tag: 'Arts', tagColor: 'bg-primary', title: 'Creative Expression', desc: 'Our students showcase their theatrical and artistic talents during the Annual Cultural week.', image: '/assets/ce.jpg' },
   { tag: 'Sports', tagColor: 'bg-accent', title: 'Athletics & Grit', desc: 'Fostering teamwork and physical excellence on our state-of-the-art sports complex.', image: 'https://images.unsplash.com/photo-1505238680356-667803448bb6?q=80&w=1000&auto=format&fit=crop' },
   { tag: 'Academic', tagColor: 'bg-slate-900', title: 'Interactive Learning', desc: 'Where concepts come to life through practical experiments and peer collaboration.', image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1000&auto=format&fit=crop' },
   { tag: 'Library', tagColor: 'bg-primary', title: 'World of Knowledge', desc: 'Discover a vast collection of books and digital resources in our modern library.', image: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1000&auto=format&fit=crop' },
