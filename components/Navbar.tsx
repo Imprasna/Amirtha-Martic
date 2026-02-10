@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
-import Logo from '../assets/logo.png';
 
 const NAVBAR_LINKS = [
   // { label: 'Academics', href: '/academics' },
@@ -37,7 +36,7 @@ const Navbar: React.FC = () => {
         <Link to="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center transition-transform group-hover:rotate-12 shadow-sm">
             {/* <span className="material-icons text-white">school</span> */}
-            <img src={Logo} alt="Amirtha Matriculation School logo" className="w-9 h-9 rounded" />
+            <img src="/assets/logo.png" alt="Amirtha Matriculation School logo" className="w-9 h-9 rounded" />
           </div>
           <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white uppercase font-display">
             Amirtha<span className="text-primary font-900">School</span>
@@ -94,9 +93,9 @@ const Navbar: React.FC = () => {
               ))}
               <hr className="border-slate-100 dark:border-slate-800" />
               <div className="flex flex-col gap-4">
-                <Link to="/admissions" className="bg-primary text-slate-900 text-center py-4 rounded-full font-bold uppercase tracking-widest text-xs cta-shadow">
+                {/* <Link to="/admissions" className="bg-primary text-slate-900 text-center py-4 rounded-full font-bold uppercase tracking-widest text-xs cta-shadow">
                   Apply Now
-                </Link>
+                </Link> */}
               </div>
             </div>
           </motion.div>
