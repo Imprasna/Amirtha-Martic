@@ -3,21 +3,50 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn, Image as ImageIcon } from 'lucide-react';
 
-// Generate image paths dynamically
-const generateImageArray = () => {
-  const images = [];
-  for (let i = 1; i <= 20; i++) {
-    const paddedNum = String(i).padStart(2, '0');
-    images.push({
-      id: i,
-      src: `/assets/photos/${paddedNum}.webp`,
-      title: 'Campus Life'
-    });
-  }
-  return images;
-};
+// Import all photos from the photos folder
+import photo01 from '../assets/photos/01.webp';
+import photo02 from '../assets/photos/02.webp';
+import photo03 from '../assets/photos/03.webp';
+import photo04 from '../assets/photos/04.webp';
+import photo05 from '../assets/photos/05.webp';
+import photo06 from '../assets/photos/06.webp';
+import photo07 from '../assets/photos/07.webp';
+import photo08 from '../assets/photos/08.webp';
+import photo09 from '../assets/photos/09.webp';
+import photo10 from '../assets/photos/10.webp';
+import photo11 from '../assets/photos/11.webp';
+import photo12 from '../assets/photos/12.webp';
+import photo13 from '../assets/photos/13.webp';
+import photo14 from '../assets/photos/14.webp';
+import photo15 from '../assets/photos/15.webp';
+import photo16 from '../assets/photos/16.webp';
+import photo17 from '../assets/photos/17.webp';
+import photo18 from '../assets/photos/18.webp';
+import photo19 from '../assets/photos/19.webp';
+import photo20 from '../assets/photos/20.webp';
 
-const IMAGES = generateImageArray();
+const IMAGES = [
+  { id: 1, src: photo01, title: 'Campus Life' },
+  { id: 2, src: photo02, title: 'Campus Life' },
+  { id: 3, src: photo03, title: 'Campus Life' },
+  { id: 4, src: photo04, title: 'Campus Life' },
+  { id: 5, src: photo05, title: 'Campus Life' },
+  { id: 6, src: photo06, title: 'Campus Life' },
+  { id: 7, src: photo07, title: 'Campus Life' },
+  { id: 8, src: photo08, title: 'Campus Life' },
+  { id: 9, src: photo09, title: 'Campus Life' },
+  { id: 10, src: photo10, title: 'Campus Life' },
+  { id: 11, src: photo11, title: 'Campus Life' },
+  { id: 12, src: photo12, title: 'Campus Life' },
+  { id: 13, src: photo13, title: 'Campus Life' },
+  { id: 14, src: photo14, title: 'Campus Life' },
+  { id: 15, src: photo15, title: 'Campus Life' },
+  { id: 16, src: photo16, title: 'Campus Life' },
+  { id: 17, src: photo17, title: 'Campus Life' },
+  { id: 18, src: photo18, title: 'Campus Life' },
+  { id: 19, src: photo19, title: 'Campus Life' },
+  { id: 20, src: photo20, title: 'Campus Life' },
+];
 
 const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<typeof IMAGES[0] | null>(null);
@@ -48,7 +77,7 @@ const Gallery: React.FC = () => {
               <img src={img.src} alt={img.title} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-secondary/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-8 text-center">
                 <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                  <ZoomIn className="text-white" />
+                  <ZoomIn className="text-secondary" />
                 </div>
                 <p className="text-white font-800 text-xl">{img.title}</p>
               </div>
