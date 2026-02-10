@@ -135,12 +135,12 @@ const Home: React.FC = () => {
           </motion.p>
           
           <motion.div variants={fadeIn} className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <button 
+            {/* <button 
               onClick={() => navigate('/admissions')}
               className="bg-primary text-secondary px-12 py-5 rounded-full font-800 text-lg hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-primary/40 active:translate-y-[0px] transition-all cta-shadow flex items-center gap-3"
             >
               Apply Now <ArrowRight size={22} />
-            </button>
+            </button> */}
             <button 
               onClick={() => setIsVideoOpen(true)}
               className="bg-white/95 backdrop-blur-md border border-white/30 text-slate-900 px-10 py-5 rounded-full font-800 text-lg hover:bg-white transition-all flex items-center gap-3 shadow-lg"
@@ -274,7 +274,7 @@ const Home: React.FC = () => {
               <div className="relative z-10">
                 <h3 className="text-3xl font-900 text-white mb-4 font-display">Student Leadership</h3>
                 <p className="text-slate-400 mb-8 text-lg font-medium">Fostering tomorrow's leaders</p>
-                <motion.button whileHover={{ scale: 1.05 }} className="bg-primary text-secondary px-8 py-3 rounded-full font-900 text-xs uppercase tracking-[0.2em] border-2 border-slate-900">
+                <motion.button whileHover={{ scale: 1.05 }} className="bg-primary text-white px-8 py-3 rounded-full font-900 text-xs uppercase tracking-[0.2em] border-2 border-slate-900">
                   Read More
                 </motion.button>
               </div>
@@ -397,11 +397,11 @@ const Home: React.FC = () => {
               <p className="text-slate-600 dark:text-slate-400 mb-10 text-lg leading-relaxed font-medium">Experience the excellence of Amirtha Matric firsthand. We'd love to show you around our beautiful facilities.</p>
               <button 
                 onClick={() => navigate('/contact')}
-                className="bg-primary text-secondary px-10 py-5 rounded-full font-800 w-full hover:scale-[1.03] active:scale-[0.98] transition-all cta-shadow text-lg border-2 border-primary/20"
+                className="bg-primary text-white px-10 py-5 rounded-full font-800 w-full hover:scale-[1.03] active:scale-[0.98] transition-all cta-shadow text-lg border-2 border-primary/20"
               >
                 Schedule Visit
               </button>
-              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest pt-6 border-t border-slate-100 dark:border-slate-800 mt-2">Tirunelveli, Tamil Nadu, India</p>
+              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest pt-6 border-t border-slate-100 dark:border-slate-800 mt-2">Unjalpalayam, Coimbatore, Tamil Nadu, India</p>
             </motion.div>
           </div>
         </motion.div>

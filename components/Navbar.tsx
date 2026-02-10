@@ -6,8 +6,8 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import Logo from '../assets/logo.png';
 
 const NAVBAR_LINKS = [
-  { label: 'Academics', href: '/academics' },
-  { label: 'Admissions', href: '/admissions' },
+  // { label: 'Academics', href: '/academics' },
+  // { label: 'Admissions', href: '/admissions' },
   { label: 'Campus Life', href: '/gallery' },
 ];
 
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
             <img src={Logo} alt="Amirtha Matriculation School logo" className="w-9 h-9 rounded" />
           </div>
           <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white uppercase font-display">
-            Amirtha<span className="text-primary font-900">Matric</span>
+            Amirtha<span className="text-primary font-900">School</span>
           </span>
         </Link>
 
@@ -61,9 +61,10 @@ const Navbar: React.FC = () => {
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-4">
-          <Link to="/admissions" className="bg-primary text-slate-900 px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform cta-shadow">
+          <div className="px-8 py-4">&nbsp;</div>
+          {/* <Link to="/admissions" className="bg-primary text-slate-900 px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform cta-shadow">
             Apply Now
-          </Link>
+          </Link> */}
         </div>
 
         {/* Mobile Toggle */}

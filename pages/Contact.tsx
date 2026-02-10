@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Send, ArrowRight } from 'lucide-react';
-import Button from '../components/Button';
+import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
@@ -12,7 +11,7 @@ const Contact: React.FC = () => {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16 space-y-4">
             <h1 className="text-6xl md:text-8xl font-900 font-display tracking-tighter text-white">Let's <span className="text-primary italic">Connect.</span></h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">Our dedicated team is here to guide you through every step of your child's educational journey at Amirtha Matric.</p>
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto">Our dedicated team is here to guide you through every step of your child's educational journey at Amirtha School.</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -25,7 +24,7 @@ const Contact: React.FC = () => {
                   </div>
                   <h4 className="text-xl font-800 text-white">Visit Us</h4>
                   <p className="text-slate-400 text-sm leading-relaxed">
-                    Main Road, Tirunelveli, <br /> Tamil Nadu 627001, India
+                    Unjalpalayam, Somanur, <br /> Tamil Nadu 641668, India
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2.5rem] space-y-5 group hover:border-accent transition-all">
@@ -60,8 +59,8 @@ const Contact: React.FC = () => {
               {/* Interactive Map Visual */}
               <div className="h-[400px] bg-slate-900 rounded-[3.5rem] overflow-hidden relative border-8 border-white/5 shadow-2xl group">
                 <img 
-                  src="https://images.unsplash.com/photo-1541339907198-e08759dfc3ef?q=80&w=1200&auto=format&fit=crop" 
-                  alt="Amirtha Matric School Aerial" 
+                  src="/assets/school.jpg" 
+                  alt="Amirtha School Aerial" 
                   className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -76,44 +75,22 @@ const Contact: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="absolute bottom-10 left-10 text-white bg-black/40 backdrop-blur-md px-6 py-3 rounded-full text-xs font-bold tracking-widest uppercase flex items-center gap-3">
+                <button
+                  onClick={() => window.open('https://maps.app.goo.gl/VUJPzKf618FGPyRd6', '_blank')}
+                  className="absolute bottom-10 left-10 text-white bg-black/40 backdrop-blur-md px-6 py-3 rounded-full text-xs font-bold tracking-widest uppercase flex items-center gap-3 hover:bg-black/60 transition-all cursor-pointer"
+                >
                   Find our campus <ArrowRight size={14} />
-                </div>
+                </button>
               </div>
             </div>
 
-            {/* Inquiry Form */}
-            <div className="bg-white dark:bg-slate-900 p-10 md:p-16 rounded-[4rem] border border-slate-100 dark:border-slate-800 shadow-2xl">
-              <h3 className="text-4xl font-900 mb-2 font-display text-secondary dark:text-white leading-tight">Start a <span className="text-primary italic">Conversation</span></h3>
-              <p className="text-slate-500 mb-10 text-lg">Send us a message and we'll get back to you within 24 hours.</p>
-              
-              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-3">
-                    <label className="text-xs font-bold uppercase tracking-widest text-slate-400 px-2">First Name</label>
-                    <input type="text" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-[1.5rem] py-5 px-8 focus:ring-2 focus:ring-primary text-secondary dark:text-white transition-all" placeholder="John" />
-                  </div>
-                  <div className="space-y-3">
-                    <label className="text-xs font-bold uppercase tracking-widest text-slate-400 px-2">Last Name</label>
-                    <input type="text" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-[1.5rem] py-5 px-8 focus:ring-2 focus:ring-primary text-secondary dark:text-white transition-all" placeholder="Doe" />
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-400 px-2">Email Address</label>
-                  <input type="email" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-[1.5rem] py-5 px-8 focus:ring-2 focus:ring-primary text-secondary dark:text-white transition-all" placeholder="john@example.com" />
-                </div>
-                <div className="space-y-3">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-400 px-2">Message</label>
-                  <textarea className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-[2rem] py-6 px-8 focus:ring-2 focus:ring-primary h-44 text-secondary dark:text-white transition-all resize-none" placeholder="What would you like to know?"></textarea>
-                </div>
-                <motion.button 
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-primary text-slate-900 font-900 py-6 rounded-[2rem] shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all flex items-center justify-center gap-3 text-lg uppercase tracking-widest group"
-                >
-                  Send Inquiry <Send size={22} className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
-                </motion.button>
-              </form>
+            {/* School Image */}
+            <div className="h-full min-h-[500px] bg-slate-900 rounded-[4rem] overflow-hidden border-8 border-white/5 shadow-2xl">
+              <img 
+                src="/assets/contact-img.jpg"
+                alt="Amirtha Matric School Campus" 
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
+              />
             </div>
           </div>
         </div>
