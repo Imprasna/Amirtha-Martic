@@ -71,16 +71,16 @@ const Academics: React.FC = () => {
           className="max-w-7xl mx-auto bg-secondary dark:bg-slate-900 rounded-[4rem] overflow-hidden flex flex-col lg:flex-row items-stretch shadow-2xl"
         >
           <div className="lg:w-1/2 p-12 lg:p-24 space-y-8 flex flex-col justify-center">
-            <motion.span variants={fadeIn} className="text-primary font-bold tracking-widest uppercase text-xs">Innovation in Action</motion.span>
-            <motion.h2 variants={fadeIn} className="text-4xl md:text-6xl font-900 font-display text-white leading-none tracking-tight">The Future-Ready <br /> <span className="text-primary">Maker Hub</span></motion.h2>
+            <motion.span variants={fadeIn} className="text-yellow-400 font-bold tracking-widest uppercase text-xs">Innovation in Action</motion.span>
+            <motion.h2 variants={fadeIn} className="text-4xl md:text-6xl font-900 font-display text-white leading-none tracking-tight">The Future-Ready <br /> <span className="text-yellow-400">Maker Hub</span></motion.h2>
             <motion.p variants={fadeIn} className="text-slate-400 text-lg leading-relaxed max-w-lg">
               Our 5,000 sq ft maker space is equipped with dual-head 3D printers, laser engravers, and a high-end VR production suite. It's where students solve real-world problems.
             </motion.p>
             <motion.div variants={staggerContainer} initial="initial" animate="animate" className="flex gap-6">
-              <motion.div variants={scaleUp} className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary shadow-xl">
+              <motion.div variants={scaleUp} className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white shadow-xl">
                 <Microscope size={28} />
               </motion.div>
-              <motion.div variants={scaleUp} className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-primary shadow-xl">
+              <motion.div variants={scaleUp} className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white shadow-xl">
                 <Zap size={28} />
               </motion.div>
             </motion.div>

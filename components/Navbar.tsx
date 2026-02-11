@@ -6,7 +6,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import Logo from '../assets/logo.png';
 
 const NAVBAR_LINKS = [
-  // { label: 'Academics', href: '/academics' },
+  { label: 'Academics', href: '/academics' },
   // { label: 'Admissions', href: '/admissions' },
   { label: 'Campus Life', href: '/gallery' },
 ];
