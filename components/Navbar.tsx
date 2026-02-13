@@ -10,6 +10,7 @@ const NAVBAR_LINKS = [
   { label: 'Academics', href: '/academics' },
   // { label: 'Admissions', href: '/admissions' },
   { label: 'Gallery', href: '/gallery' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const Navbar: React.FC = () => {
@@ -63,9 +64,9 @@ const Navbar: React.FC = () => {
         {/* CTA */}
         <div className="hidden md:flex items-center gap-4">
           <div className="px-8 py-4">&nbsp;</div>
-          {/* <Link to="/admissions" className="bg-primary text-slate-900 px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform cta-shadow">
-            Apply Now
-          </Link> */}
+          <Link to="#" className="bg-yellow-400 text-slate-900 px-12 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform cta-shadow">
+            {/* Apply Now */} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </Link>
         </div>
 
         {/* Mobile Toggle */}

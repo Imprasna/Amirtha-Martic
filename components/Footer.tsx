@@ -6,7 +6,7 @@ import Logo from '../assets/logo.png';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-900 text-white pt-24 pb-12 mt-12">
+    <footer className="bg-slate-900 text-white pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 gap-12 mb-16 justify-items-center">
           <div className="col-span-1 flex flex-col items-center">

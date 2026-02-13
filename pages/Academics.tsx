@@ -12,7 +12,7 @@ const Academics: React.FC = () => {
       className="pb-24"
     >
       {/* Hero */}
-      <section className="py-24 px-6 text-center max-w-4xl mx-auto space-y-8">
+      <section className="relative py-24 px-6 text-center max-w-4xl mx-auto space-y-8 mt-24">
         <motion.h1 variants={fadeIn} className="text-6xl md:text-8xl font-900 font-display tracking-tighter leading-none">Curriculum for <br /> the <span className="text-primary italic">Digital Age.</span></motion.h1>
         <motion.p variants={fadeIn} className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
           We combine a rigorous core curriculum with interdisciplinary pathways that prepare students for careers that don't even exist yet.

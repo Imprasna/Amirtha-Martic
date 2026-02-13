@@ -52,7 +52,7 @@ const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<typeof IMAGES[0] | null>(null);
 
   return (
-    <div className="py-20 px-6 max-w-7xl mx-auto">
+    <div className="py-40 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-16 space-y-4">
         <h1 className="text-5xl font-800 font-display">Campus Moments</h1>
         <p className="text-slate-500">A glimpse into the daily life and achievements of our students.</p>

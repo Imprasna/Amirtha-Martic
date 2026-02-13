@@ -172,10 +172,10 @@ const About: React.FC = () => {
     <motion.div
       initial="initial"
       animate="animate"
-      className="pb-24 overflow-hidden"
+      className="overflow-hidden"
     >
       {/* Dynamic Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center pt-20 pb-32 px-6 overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center justify-center pt-20 pb-32 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-secondary z-0">
           <img
             src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop"
@@ -189,7 +189,7 @@ const About: React.FC = () => {
           variants={staggerContainer}
           className="max-w-5xl mx-auto text-center relative z-10 space-y-8"
         >
-          <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest">
+          <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-white text-xs font-bold uppercase tracking-widest">
             <Sparkles size={14} /> Our Legacy of Excellence
           </motion.div>
           <motion.h1
@@ -197,7 +197,7 @@ const About: React.FC = () => {
             className="text-5xl md:text-8xl font-900 font-display text-white tracking-tighter leading-tight"
           >
             Nurturing Minds <br />
-            <span className="text-primary italic">Transforming Futures.</span>
+            <span className="text-yellow-400 italic">Transforming Futures.</span>
           </motion.h1>
           <motion.p
             variants={fadeIn}

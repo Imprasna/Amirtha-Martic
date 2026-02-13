@@ -20,7 +20,7 @@ const AppContent: React.FC = () => {
       <Navbar />
       {/* Removed global pt-20. Home handles its own spacing for full-bleed hero. 
           Other pages get a padding wrapper. */}
-      <main className={`flex-grow ${!isHome ? 'pt-24' : ''}`}>
+      <main className={`flex-grow ${!isHome ? 'pt-0' : ''}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
