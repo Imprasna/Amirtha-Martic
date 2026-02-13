@@ -87,7 +87,7 @@ const Contact: React.FC = () => {
             {/* School Image */}
             <div className="h-full min-h-[500px] bg-slate-900 rounded-[4rem] overflow-hidden border-8 border-white/5 shadow-2xl">
               <img 
-                src="/assets/contact-img.jpg"
+                src="/contact-img.jpg"
                 alt="Amirtha Matric School Campus" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
               />
