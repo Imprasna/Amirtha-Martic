@@ -19,7 +19,7 @@ const Contact: React.FC = () => {
             <div className="space-y-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2.5rem] space-y-5 group hover:border-primary transition-all">
-                  <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center text-primary shadow-lg">
+                  <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center text-blue-400 shadow-lg">
                     <MapPin size={28} />
                   </div>
                   <h4 className="text-xl font-800 text-white">Visit Us</h4>
@@ -37,7 +37,7 @@ const Contact: React.FC = () => {
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2.5rem] space-y-5 group hover:border-primary transition-all">
-                  <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center text-primary shadow-lg">
+                  <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center text-blue-400 shadow-lg">
                     <Mail size={28} />
                   </div>
                   <h4 className="text-xl font-800 text-white">Email Us</h4>

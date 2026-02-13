@@ -178,7 +178,7 @@ const About: React.FC = () => {
       <section className="relative min-h-[80vh] flex items-center justify-center pt-20 pb-32 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-secondary z-0">
           <img
-            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2000&auto=format&fit=crop"
             className="w-full h-full object-cover opacity-20"
             alt="School Campus"
           />

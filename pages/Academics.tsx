@@ -1,27 +1,79 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Book, Microscope, Palette, Music, Calculator, Languages, Zap, ArrowRight } from 'lucide-react';
+import { Book, Microscope, Palette, Music, Calculator, Languages, Zap, ArrowRight, Sparkles, BookOpen } from 'lucide-react';
 import { fadeIn, staggerContainer, scaleUp } from '../constants';
 
 const Academics: React.FC = () => {
   return (
-    <motion.div 
+    <motion.div
       initial="initial"
       animate="animate"
-      className="pb-24"
+      className="pb-24 overflow-hidden"
     >
       {/* Hero */}
-      <section className="relative py-24 px-6 text-center max-w-4xl mx-auto space-y-8 mt-24">
+      {/* <section className="relative py-24 px-6 text-center max-w-4xl mx-auto space-y-8 mt-24">
         <motion.h1 variants={fadeIn} className="text-6xl md:text-8xl font-900 font-display tracking-tighter leading-none">Curriculum for <br /> the <span className="text-primary italic">Digital Age.</span></motion.h1>
         <motion.p variants={fadeIn} className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
           We combine a rigorous core curriculum with interdisciplinary pathways that prepare students for careers that don't even exist yet.
         </motion.p>
+      </section> */}
+      <section className="relative min-h-[60vh] flex items-center justify-center pt-40 pb-32 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-secondary z-0">
+          <img
+            src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2000&auto=format&fit=crop"
+            className="w-full h-full object-cover opacity-20"
+            alt="Academic Excellence"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/60 to-background-light dark:to-background-dark"></div>
+        </div>
+
+        <motion.div
+          variants={staggerContainer}
+          className="max-w-5xl mx-auto text-center relative z-10 space-y-8"
+        >
+          <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-white text-xs font-bold uppercase tracking-widest">
+            <BookOpen size={14} /> Future-Ready Curriculum
+          </motion.div>
+          <motion.h1
+            variants={fadeIn}
+            className="text-6xl md:text-8xl font-900 font-display text-white tracking-tighter leading-none"
+          >
+            Curriculum for <br />
+            the <span className="text-yellow-400 italic">Digital Age.</span>
+          </motion.h1>
+          <motion.p
+            variants={fadeIn}
+            className="text-xl md:text-2xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-medium"
+          >
+            We combine a rigorous core curriculum with interdisciplinary pathways that prepare students for careers that don't even exist yet.
+          </motion.p>
+        </motion.div>
+
+        {/* Floating Background Blobs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, -90, 0],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{ duration: 25, repeat: Infinity }}
+          className="absolute -bottom-20 -left-20 w-96 h-96 bg-primary organic-blob blur-3xl -z-10"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, 45, 0],
+            opacity: [0.05, 0.1, 0.05]
+          }}
+          transition={{ duration: 15, repeat: Infinity }}
+          className="absolute top-1/4 -right-20 w-80 h-80 bg-accent organic-blob blur-3xl -z-10"
+        />
       </section>
 
       {/* Subject Cards */}
       <section className="px-6 max-w-7xl mx-auto">
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
@@ -36,14 +88,14 @@ const Academics: React.FC = () => {
             { title: 'Languages', icon: Languages, color: 'bg-rose-500', text: 'Immersion programs in multiple languages fostering cultural empathy and communication.' },
             { title: 'Performing Arts', icon: Music, color: 'bg-primary', text: 'Professional-grade theater production, orchestral music, and modern contemporary dance.' },
           ].map((subject, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               variants={scaleUp}
               whileHover={{ y: -12 }}
               style={{ border: '0.3px solid black' }}
               className="bg-white dark:bg-slate-900 p-10 rounded-[3rem] shadow-xl shadow-slate-100/50 dark:shadow-none hover:shadow-2xl transition-all group"
             >
-              <motion.div 
+              <motion.div
                 whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
                 className={`w-16 h-16 rounded-2xl ${subject.color} flex items-center justify-center mb-8 shadow-xl shadow-black/10 group-hover:rotate-12 transition-all`}
               >
@@ -51,7 +103,7 @@ const Academics: React.FC = () => {
               </motion.div>
               <h3 className="text-2xl font-800 mb-4 font-display leading-tight">{subject.title}</h3>
               <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-8 text-sm">{subject.text}</p>
-              <motion.button 
+              <motion.button
                 whileHover={{ x: 5 }}
                 className="text-xs font-bold uppercase tracking-widest text-secondary dark:text-white flex items-center gap-3 transition-all group-hover:text-primary"
               >
@@ -64,7 +116,7 @@ const Academics: React.FC = () => {
 
       {/* Featured Lab */}
       <section className="mt-24 px-6">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -85,16 +137,16 @@ const Academics: React.FC = () => {
               </motion.div>
             </motion.div>
           </div>
-          <motion.div 
+          <motion.div
             initial={{ x: 100, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
             className="lg:w-1/2 aspect-video lg:aspect-auto"
           >
-            <img 
-              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop" 
-              alt="Innovation Hub" 
-              className="w-full h-full object-cover grayscale-0 hover:grayscale-0 transition-all duration-700" 
+            <img
+              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop"
+              alt="Innovation Hub"
+              className="w-full h-full object-cover grayscale-0 hover:grayscale-0 transition-all duration-700"
             />
           </motion.div>
         </motion.div>
