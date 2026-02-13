@@ -10,7 +10,7 @@ const Contact: React.FC = () => {
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 organic-blob -translate-y-1/2 translate-x-1/2" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16 space-y-4">
-            <h1 className="text-6xl md:text-8xl font-900 font-display tracking-tighter text-white">Let's <span className="text-yellow-400 italic">Connect.</span></h1>
+            <h1 className="text-6xl md:text-8xl font-900 font-display tracking-tighter text-white">Let's <span className="text-primary italic">Connect.</span></h1>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto">Our dedicated team is here to guide you through every step of your child's educational journey at Amirtha School.</p>
           </div>
 
@@ -59,7 +59,7 @@ const Contact: React.FC = () => {
               {/* Interactive Map Visual */}
               <div className="h-[400px] bg-slate-900 rounded-[3.5rem] overflow-hidden relative border-8 border-white/5 shadow-2xl group">
                 <img 
-                  src="/assets/school.jpg" 
+                  src="/school.jpg" 
                   alt="Amirtha School Aerial" 
                   className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000"
                 />
