@@ -2,8 +2,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { 
-  ChevronLeft, 
+import {
+  ChevronLeft,
   ChevronRight,
   ArrowRight,
   CalendarDays,
@@ -28,28 +28,28 @@ const CAMPUS_LIFE_DATA = [
 ];
 
 const PlayfulDoodle = () => (
-  <motion.div 
+  <motion.div
     className="relative w-24 h-24"
     animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
   >
     <motion.svg viewBox="0 0 100 100" className="w-full h-full text-primary fill-none stroke-current stroke-[3]">
-      <motion.path 
-        d="M20,50 Q40,20 60,50 T100,50" 
+      <motion.path
+        d="M20,50 Q40,20 60,50 T100,50"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
         transition={{ duration: 2, repeat: Infinity }}
       />
       <circle cx="20" cy="50" r="5" className="fill-current" />
       <circle cx="60" cy="50" r="5" className="fill-current" />
-      <motion.path 
-        d="M30,30 L70,70 M70,30 L30,70" 
+      <motion.path
+        d="M30,30 L70,70 M70,30 L30,70"
         strokeWidth="2"
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       />
     </motion.svg>
-    <motion.div 
+    <motion.div
       className="absolute -top-2 -right-2"
       animate={{ y: [-5, 5, -5] }}
       transition={{ duration: 2, repeat: Infinity }}
@@ -66,7 +66,7 @@ const Home: React.FC = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const visitRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -80,7 +80,7 @@ const Home: React.FC = () => {
   const heroBgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const heroTextY = useTransform(scrollYProgress, [0, 1], ["0%", "55%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  
+
   const visitBgY = useTransform(visitScroll, [0, 1], ["-15%", "15%"]);
 
   const nextSlide = () => {
@@ -103,7 +103,7 @@ const Home: React.FC = () => {
   }, [carouselIndex]);
 
   return (
-    <motion.div 
+    <motion.div
       initial="initial"
       animate="animate"
       className="overflow-x-hidden"
@@ -113,14 +113,14 @@ const Home: React.FC = () => {
         {/* Parallax Background */}
         <motion.div style={{ y: heroBgY }} className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-background-light dark:to-background-dark/80 z-10"></div>
-          <img 
-            src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=2000&auto=format&fit=crop" 
-            alt="Amirtha Matric School Vibrant Students" 
+          <img
+            src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=2000&auto=format&fit=crop"
+            alt="Amirtha Matric School Vibrant Students"
             className="w-full h-full object-cover"
           />
         </motion.div>
 
-        <motion.div 
+        <motion.div
           style={{ y: heroTextY, opacity: heroOpacity }}
           variants={staggerContainer}
           className="relative z-20 text-center px-6 max-w-5xl mx-auto"
@@ -134,7 +134,7 @@ const Home: React.FC = () => {
           <motion.p variants={fadeIn} className="text-lg md:text-2xl text-white/95 mb-10 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-xl">
             Building a legacy of academic brilliance and community values. Empowering your child to excel in an ever-changing world.
           </motion.p>
-          
+
           <motion.div variants={fadeIn} className="flex flex-col md:flex-row items-center justify-center gap-6">
             {/* <button 
               onClick={() => navigate('/admissions')}
@@ -142,7 +142,7 @@ const Home: React.FC = () => {
             >
               Apply Now <ArrowRight size={22} />
             </button> */}
-            <button 
+            <button
               onClick={() => setIsVideoOpen(true)}
               className="bg-white/95 backdrop-blur-md border border-white/30 text-slate-900 px-10 py-5 rounded-full font-800 text-lg hover:bg-white transition-all flex items-center gap-3 shadow-lg"
             >
@@ -152,7 +152,7 @@ const Home: React.FC = () => {
         </motion.div>
 
         {/* Scroll Indicator */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
@@ -160,7 +160,7 @@ const Home: React.FC = () => {
         >
           <span className="text-[10px] uppercase tracking-[0.2em] drop-shadow-sm">Discover More</span>
           <div className="w-px h-12 bg-slate-900/30 relative overflow-hidden rounded-full">
-            <motion.div 
+            <motion.div
               animate={{ y: [0, 48] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
               className="absolute top-0 left-0 w-full h-1/2 bg-slate-900"
@@ -172,31 +172,24 @@ const Home: React.FC = () => {
       {/* Video Modal */}
       <AnimatePresence>
         {isVideoOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10"
           >
-            <button 
+            <button
               onClick={() => setIsVideoOpen(false)}
               className="absolute top-6 right-6 text-white bg-white/10 p-4 rounded-full hover:bg-white/20 transition-colors z-10"
             >
               <X size={32} />
             </button>
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               className="relative w-full max-w-6xl aspect-video rounded-3xl overflow-hidden shadow-2xl bg-slate-900"
             >
-              <iframe 
-                className="absolute inset-0 w-full h-full"
-                src="https://youtu.be/6Ayyhwa3dqk?si=bmAvz0GRiM-lp-e5&autoplay=1&mute=0" 
-                title="Amirtha Matric School Tour"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/6Ayyhwa3dqk?si=XULqyE79eAzgMdrU&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </motion.div>
           </motion.div>
         )}
@@ -204,7 +197,7 @@ const Home: React.FC = () => {
 
       {/* Daily Highlights - KEEPING THE BORDERS HERE */}
       <section className="py-24 px-6 bg-background-light dark:bg-background-dark">
-        <motion.div 
+        <motion.div
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: "-100px" }}
@@ -222,7 +215,7 @@ const Home: React.FC = () => {
 
           {/* Grid with thick black borders for visibility - As specifically requested */}
           <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-8 h-auto md:h-[650px]">
-            <motion.div 
+            <motion.div
               variants={scaleUp}
               className="md:col-span-2 md:row-span-2 bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 flex flex-col justify-between overflow-hidden relative group border-[3px] border-slate-900 shadow-xl"
             >
@@ -364,17 +357,17 @@ const Home: React.FC = () => {
 
       {/* Visit Our Campus - UPDATED WITH BEAUTIFUL BACKGROUND IMAGE */}
       <section ref={visitRef} className="py-24 px-6 bg-white dark:bg-background-dark">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.98 }} 
-          whileInView={{ opacity: 1, scale: 1 }} 
-          viewport={{ once: true }} 
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
           className="max-w-7xl mx-auto rounded-[3.5rem] overflow-hidden h-[650px] relative shadow-2xl"
         >
           {/* Enhanced Background with Parallax and Blur on the edges */}
           <motion.div style={{ y: visitBgY }} className="absolute inset-0 z-0 h-[120%] w-full">
-            <img 
-              src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2000&auto=format&fit=crop" 
-              alt="Beautiful School Campus Building" 
+            <img
+              src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2000&auto=format&fit=crop"
+              alt="Beautiful School Campus Building"
               className="w-full h-full object-cover brightness-[0.55] contrast-[1.1]"
             />
             {/* Overlay Gradient for Text Readability and Depth */}
@@ -383,11 +376,11 @@ const Home: React.FC = () => {
           </motion.div>
 
           <div className="absolute inset-0 flex items-center justify-center p-6 z-20">
-            <motion.div 
-              whileHover={{ scale: 1.02, y: -5 }} 
+            <motion.div
+              whileHover={{ scale: 1.02, y: -5 }}
               className="bg-white/95 dark:bg-slate-900/95 p-12 md:p-16 rounded-[3rem] shadow-2xl text-center max-w-lg border border-primary/20 backdrop-blur-xl"
             >
-              <motion.div 
+              <motion.div
                 animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 5, repeat: Infinity }}
                 className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-8 text-primary shadow-inner"
@@ -396,7 +389,7 @@ const Home: React.FC = () => {
               </motion.div>
               <h3 className="text-4xl font-800 mb-4 dark:text-white font-display tracking-tight leading-tight">Visit Our Campus</h3>
               <p className="text-slate-600 dark:text-slate-400 mb-10 text-lg leading-relaxed font-medium">Experience the excellence of Amirtha Matric firsthand. We'd love to show you around our beautiful facilities.</p>
-              <button 
+              <button
                 onClick={() => navigate('/contact')}
                 className="bg-primary text-white px-10 py-5 rounded-full font-800 w-full hover:scale-[1.03] active:scale-[0.98] transition-all cta-shadow text-lg border-2 border-primary/20"
               >
