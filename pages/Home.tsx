@@ -189,7 +189,8 @@ const Home: React.FC = () => {
               animate={{ scale: 1, y: 0 }}
               className="relative w-full max-w-6xl aspect-video rounded-3xl overflow-hidden shadow-2xl bg-slate-900"
             >
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/6Ayyhwa3dqk?si=XULqyE79eAzgMdrU&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/6Ayyhwa3dqk?si=XULqyE79eAzgMdrU&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </motion.div>
           </motion.div>
         )}
