@@ -191,7 +191,7 @@ const Home: React.FC = () => {
             >
               <iframe 
                 className="absolute inset-0 w-full h-full"
-                src="https://youtu.be/6Ayyhwa3dqk" 
+                src="https://youtu.be/6Ayyhwa3dqk?si=tRxZRV5xDrRbIKjs" 
                 title="Amirtha Matric School Tour"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
