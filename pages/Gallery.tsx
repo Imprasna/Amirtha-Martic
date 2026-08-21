@@ -1,6 +1,17 @@
-import React, { useMemo, useState } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ZoomIn, Image as ImageIcon, Play } from 'lucide-react';
+import {
+  X,
+  ZoomIn,
+  Image as ImageIcon,
+  Play,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 
 type MediaType = 'image' | 'video';
 
@@ -10,109 +21,350 @@ type GalleryMedia = {
   title: string;
   type: MediaType;
   filename: string;
+  path: string;
 };
 
 /*
- * Automatically fetch ALL images and videos from the assets folder.
+|--------------------------------------------------------------------------
+| SUPPORTED FILE TYPES
+|--------------------------------------------------------------------------
+*/
+
+const IMAGE_EXTENSIONS = new Set([
+  'jpg',
+  'jpeg',
+  'png',
+  'webp',
+  'gif',
+  'avif',
+  'svg',
+  'bmp',
+]);
+
+const VIDEO_EXTENSIONS = new Set([
+  'mp4',
+  'webm',
+  'mov',
+  'm4v',
+  'ogv',
+]);
+
+/*
+|--------------------------------------------------------------------------
+| AUTOMATIC ASSET DISCOVERY
+|--------------------------------------------------------------------------
+|
+| This scans EVERYTHING inside:
+|
+|   src/assets/
+|
+| including all subfolders.
+|
+| Examples:
+|
+|   assets/photos/photo.jpg
+|   assets/photos/White-line Certificate.png
+|   assets/gallery/PHOTO.JPG
+|   assets/events/My Event Image.PNG
+|   assets/videos/Campus Tour.MP4
+|
+| No manual imports are required.
+|
+*/
+
+const assetFiles = import.meta.glob(
+  '../assets/**/*',
+  {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }
+) as Record<string, string>;
+
+/*
+|--------------------------------------------------------------------------
+| HELPERS
+|--------------------------------------------------------------------------
+*/
+
+const getExtension = (path: string): string => {
+  const fileName = path.split('/').pop() ?? '';
+
+  const lastDot = fileName.lastIndexOf('.');
+
+  if (lastDot === -1) {
+    return '';
+  }
+
+  return fileName
+    .substring(lastDot + 1)
+    .toLowerCase();
+};
+
+const getFileName = (path: string): string => {
+  const fileName = path.split('/').pop() ?? '';
+
+  const lastDot = fileName.lastIndexOf('.');
+
+  if (lastDot === -1) {
+    return fileName;
+  }
+
+  return fileName.substring(0, lastDot);
+};
+
+/*
+ * Converts filenames into readable gallery titles.
  *
- * You can put files anywhere inside:
- * src/assets/
+ * Examples:
  *
- * For example:
- * src/assets/photos/01.webp
- * src/assets/photos/02.jpg
- * src/assets/photos/new-photo.png
- * src/assets/videos/campus-tour.mp4
- * src/assets/videos/event.mp4
+ * White-line Certificate
+ *     -> White Line Certificate
  *
- * No manual imports are required.
+ * annual_day_2026
+ *     -> Annual Day 2026
+ *
+ * campus-tour
+ *     -> Campus Tour
  */
 
-const imageFiles = import.meta.glob(
-  '../assets/**/*.{jpg,jpeg,png,webp,gif,avif}',
-  {
-    eager: true,
-    query: '?url',
-    import: 'default',
-  }
-) as Record<string, string>;
-
-const videoFiles = import.meta.glob(
-  '../assets/**/*.{mp4,webm,mov,ogg,m4v}',
-  {
-    eager: true,
-    query: '?url',
-    import: 'default',
-  }
-) as Record<string, string>;
-
-const getFileName = (path: string) => {
-  const fileName = path.split('/').pop() || '';
-  return fileName.replace(/\.[^/.]+$/, '');
-};
-
-const formatTitle = (filename: string) => {
+const formatTitle = (filename: string): string => {
   return filename
     .replace(/[-_]+/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\b\w/g, (character) =>
+      character.toUpperCase()
+    );
 };
 
-const IMAGES: GalleryMedia[] = [
-  ...Object.entries(imageFiles).map(([path, src]) => ({
-    src,
-    filename: getFileName(path),
-    type: 'image' as const,
-  })),
+/*
+|--------------------------------------------------------------------------
+| BUILD GALLERY MEDIA
+|--------------------------------------------------------------------------
+*/
 
-  ...Object.entries(videoFiles).map(([path, src]) => ({
-    src,
-    filename: getFileName(path),
-    type: 'video' as const,
-  })),
-]
-  .sort((a, b) => a.filename.localeCompare(b.filename, undefined, {
-    numeric: true,
-    sensitivity: 'base',
-  }))
+const IMAGES: GalleryMedia[] = Object.entries(assetFiles)
+  .map(([path, src]) => {
+    const extension = getExtension(path);
+
+    if (IMAGE_EXTENSIONS.has(extension)) {
+      return {
+        src,
+        path,
+        filename: getFileName(path),
+        title: formatTitle(getFileName(path)),
+        type: 'image' as const,
+      };
+    }
+
+    if (VIDEO_EXTENSIONS.has(extension)) {
+      return {
+        src,
+        path,
+        filename: getFileName(path),
+        title: formatTitle(getFileName(path)),
+        type: 'video' as const,
+      };
+    }
+
+    return null;
+  })
+  .filter(
+    (item): item is Omit<GalleryMedia, 'id'> =>
+      item !== null
+  )
+  /*
+   * Natural sorting:
+   *
+   * image1
+   * image2
+   * image10
+   *
+   * instead of:
+   *
+   * image1
+   * image10
+   * image2
+   */
+  .sort((a, b) =>
+    a.filename.localeCompare(
+      b.filename,
+      undefined,
+      {
+        numeric: true,
+        sensitivity: 'base',
+      }
+    )
+  )
   .map((item, index) => ({
+    ...item,
     id: index + 1,
-    src: item.src,
-    title: formatTitle(item.filename),
-    type: item.type,
-    filename: item.filename,
   }));
 
-const Gallery: React.FC = () => {
-  const [selectedImage, setSelectedImage] =
-    useState<GalleryMedia | null>(null);
+/*
+|--------------------------------------------------------------------------
+| GALLERY COMPONENT
+|--------------------------------------------------------------------------
+*/
 
-  const mediaCount = useMemo(() => IMAGES.length, []);
+const Gallery: React.FC = () => {
+  const [selectedIndex, setSelectedIndex] =
+    useState<number | null>(null);
+
+  const selectedImage =
+    selectedIndex !== null
+      ? IMAGES[selectedIndex]
+      : null;
+
+  /*
+  |--------------------------------------------------------------------------
+  | KEYBOARD CONTROLS
+  |--------------------------------------------------------------------------
+  */
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (selectedIndex === null) {
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        setSelectedIndex(null);
+      }
+
+      if (event.key === 'ArrowLeft') {
+        setSelectedIndex((current) => {
+          if (current === null) return null;
+
+          return current === 0
+            ? IMAGES.length - 1
+            : current - 1;
+        });
+      }
+
+      if (event.key === 'ArrowRight') {
+        setSelectedIndex((current) => {
+          if (current === null) return null;
+
+          return current === IMAGES.length - 1
+            ? 0
+            : current + 1;
+        });
+      }
+    };
+
+    window.addEventListener(
+      'keydown',
+      handleKeyDown
+    );
+
+    return () => {
+      window.removeEventListener(
+        'keydown',
+        handleKeyDown
+      );
+    };
+  }, [selectedIndex]);
+
+  /*
+  |--------------------------------------------------------------------------
+  | PREVENT BACKGROUND SCROLL WHEN LIGHTBOX IS OPEN
+  |--------------------------------------------------------------------------
+  */
+
+  useEffect(() => {
+    if (selectedIndex === null) {
+      document.body.style.overflow = '';
+      return;
+    }
+
+    const originalOverflow =
+      document.body.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow =
+        originalOverflow;
+    };
+  }, [selectedIndex]);
+
+  /*
+  |--------------------------------------------------------------------------
+  | MEDIA COUNT
+  |--------------------------------------------------------------------------
+  */
+
+  const mediaCount = useMemo(
+    () => IMAGES.length,
+    []
+  );
+
+  /*
+  |--------------------------------------------------------------------------
+  | NAVIGATION
+  |--------------------------------------------------------------------------
+  */
+
+  const showPrevious = () => {
+    setSelectedIndex((current) => {
+      if (current === null) return null;
+
+      return current === 0
+        ? IMAGES.length - 1
+        : current - 1;
+    });
+  };
+
+  const showNext = () => {
+    setSelectedIndex((current) => {
+      if (current === null) return null;
+
+      return current === IMAGES.length - 1
+        ? 0
+        : current + 1;
+    });
+  };
+
+  /*
+  |--------------------------------------------------------------------------
+  | RENDER
+  |--------------------------------------------------------------------------
+  */
 
   return (
     <div className="py-40 px-6 max-w-7xl mx-auto">
 
-      {/* Header */}
+      {/* HEADER */}
       <div className="text-center mb-16 space-y-4">
         <h1 className="text-5xl font-800 font-display">
           Campus Moments
         </h1>
 
         <p className="text-slate-500">
-          A glimpse into the daily life and achievements of our students.
+          A glimpse into the daily life and achievements
+          of our students.
         </p>
       </div>
 
-      {/* Gallery */}
+      {/* GALLERY */}
       {mediaCount > 0 ? (
         <motion.div
           layout
-          className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"
+          className="
+            columns-1
+            md:columns-2
+            lg:columns-3
+            gap-6
+            space-y-6
+          "
         >
           <AnimatePresence mode="popLayout">
 
-            {IMAGES.map((media) => (
+            {IMAGES.map((media, index) => (
               <motion.div
-                key={media.id}
+                key={media.path}
                 layout
                 initial={{
                   opacity: 0,
@@ -129,8 +381,20 @@ const Gallery: React.FC = () => {
                 transition={{
                   duration: 0.35,
                 }}
-                className="relative group cursor-pointer break-inside-avoid rounded-3xl overflow-hidden shadow-xl bg-slate-100"
-                onClick={() => setSelectedImage(media)}
+                className="
+                  relative
+                  group
+                  cursor-pointer
+                  break-inside-avoid
+                  rounded-3xl
+                  overflow-hidden
+                  shadow-xl
+                  bg-slate-100
+                  mb-6
+                "
+                onClick={() =>
+                  setSelectedIndex(index)
+                }
               >
 
                 {/* IMAGE */}
@@ -139,7 +403,9 @@ const Gallery: React.FC = () => {
                     src={media.src}
                     alt={media.title}
                     loading="lazy"
+                    decoding="async"
                     className="
+                      block
                       w-full
                       h-auto
                       object-cover
@@ -147,6 +413,14 @@ const Gallery: React.FC = () => {
                       duration-700
                       group-hover:scale-110
                     "
+                    onError={(event) => {
+                      /*
+                       * Prevent broken images from
+                       * displaying ugly browser icons.
+                       */
+                      event.currentTarget.style.display =
+                        'none';
+                    }}
                   />
                 )}
 
@@ -159,6 +433,7 @@ const Gallery: React.FC = () => {
                       playsInline
                       preload="metadata"
                       className="
+                        block
                         w-full
                         h-auto
                         object-cover
@@ -168,27 +443,31 @@ const Gallery: React.FC = () => {
                       "
                     />
 
-                    {/* Video play icon */}
-                    <div className="
-                      absolute
-                      inset-0
-                      flex
-                      items-center
-                      justify-center
-                      pointer-events-none
-                    ">
-                      <div className="
-                        w-14
-                        h-14
-                        rounded-full
-                        bg-black/60
-                        backdrop-blur-sm
+                    {/* PLAY BUTTON */}
+                    <div
+                      className="
+                        absolute
+                        inset-0
                         flex
                         items-center
                         justify-center
-                      ">
+                        pointer-events-none
+                      "
+                    >
+                      <div
+                        className="
+                          w-14
+                          h-14
+                          rounded-full
+                          bg-black/60
+                          backdrop-blur-sm
+                          flex
+                          items-center
+                          justify-center
+                        "
+                      >
                         <Play
-                          size={25}
+                          size={24}
                           className="text-white ml-1"
                           fill="white"
                         />
@@ -197,37 +476,41 @@ const Gallery: React.FC = () => {
                   </div>
                 )}
 
-                {/* Hover overlay */}
-                <div className="
-                  absolute
-                  inset-0
-                  bg-secondary/60
-                  opacity-0
-                  group-hover:opacity-100
-                  transition-opacity
-                  duration-300
-                  flex
-                  flex-col
-                  items-center
-                  justify-center
-                  p-8
-                  text-center
-                ">
-
-                  <div className="
-                    w-12
-                    h-12
-                    bg-primary
-                    rounded-full
+                {/* HOVER OVERLAY */}
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-secondary/60
+                    opacity-0
+                    group-hover:opacity-100
+                    transition-opacity
+                    duration-300
                     flex
+                    flex-col
                     items-center
                     justify-center
-                    mb-4
-                    transform
-                    translate-y-4
-                    group-hover:translate-y-0
-                    transition-transform
-                  ">
+                    p-8
+                    text-center
+                  "
+                >
+
+                  <div
+                    className="
+                      w-12
+                      h-12
+                      bg-primary
+                      rounded-full
+                      flex
+                      items-center
+                      justify-center
+                      mb-4
+                      transform
+                      translate-y-4
+                      group-hover:translate-y-0
+                      transition-transform
+                    "
+                  >
                     {media.type === 'video' ? (
                       <Play
                         className="text-white ml-0.5"
@@ -242,11 +525,14 @@ const Gallery: React.FC = () => {
                     )}
                   </div>
 
-                  <p className="
-                    text-white
-                    font-800
-                    text-xl
-                  ">
+                  <p
+                    className="
+                      text-white
+                      font-800
+                      text-xl
+                      break-words
+                    "
+                  >
                     {media.title}
                   </p>
 
@@ -257,8 +543,15 @@ const Gallery: React.FC = () => {
           </AnimatePresence>
         </motion.div>
       ) : (
-        /* Empty State */
-        <div className="py-24 text-center space-y-4">
+
+        /* EMPTY STATE */
+        <div
+          className="
+            py-24
+            text-center
+            space-y-4
+          "
+        >
           <ImageIcon
             className="mx-auto text-slate-200"
             size={64}
@@ -272,11 +565,17 @@ const Gallery: React.FC = () => {
 
       {/* LIGHTBOX */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedImage && selectedIndex !== null && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
             className="
               fixed
               inset-0
@@ -288,30 +587,102 @@ const Gallery: React.FC = () => {
               p-6
               backdrop-blur-xl
             "
-            onClick={() => setSelectedImage(null)}
+            onClick={() =>
+              setSelectedIndex(null)
+            }
           >
 
-            {/* Close button */}
+            {/* CLOSE */}
             <button
               type="button"
               aria-label="Close gallery"
               className="
                 absolute
-                top-8
-                right-8
+                top-6
+                right-6
+                md:top-8
+                md:right-8
                 text-white
                 p-2
                 hover:bg-white/10
                 rounded-full
                 transition-colors
-                z-10
+                z-20
               "
-              onClick={() => setSelectedImage(null)}
+              onClick={() =>
+                setSelectedIndex(null)
+              }
             >
               <X size={40} />
             </button>
 
-            {/* Media container */}
+            {/* PREVIOUS */}
+            {IMAGES.length > 1 && (
+              <button
+                type="button"
+                aria-label="Previous image"
+                className="
+                  absolute
+                  left-3
+                  md:left-8
+                  top-1/2
+                  -translate-y-1/2
+                  z-20
+                  w-12
+                  h-12
+                  rounded-full
+                  bg-white/10
+                  hover:bg-white/20
+                  text-white
+                  flex
+                  items-center
+                  justify-center
+                  backdrop-blur-sm
+                  transition-colors
+                "
+                onClick={(event) => {
+                  event.stopPropagation();
+                  showPrevious();
+                }}
+              >
+                <ChevronLeft size={30} />
+              </button>
+            )}
+
+            {/* NEXT */}
+            {IMAGES.length > 1 && (
+              <button
+                type="button"
+                aria-label="Next image"
+                className="
+                  absolute
+                  right-3
+                  md:right-8
+                  top-1/2
+                  -translate-y-1/2
+                  z-20
+                  w-12
+                  h-12
+                  rounded-full
+                  bg-white/10
+                  hover:bg-white/20
+                  text-white
+                  flex
+                  items-center
+                  justify-center
+                  backdrop-blur-sm
+                  transition-colors
+                "
+                onClick={(event) => {
+                  event.stopPropagation();
+                  showNext();
+                }}
+              >
+                <ChevronRight size={30} />
+              </button>
+            )}
+
+            {/* MEDIA */}
             <motion.div
               initial={{
                 scale: 0.9,
@@ -328,19 +699,29 @@ const Gallery: React.FC = () => {
               transition={{
                 duration: 0.3,
               }}
-              className="max-w-5xl w-full"
-              onClick={(e) => e.stopPropagation()}
+              className="
+                max-w-5xl
+                w-full
+                max-h-[90vh]
+                flex
+                flex-col
+                items-center
+              "
+              onClick={(event) =>
+                event.stopPropagation()
+              }
             >
 
-              {/* Selected image */}
+              {/* IMAGE LIGHTBOX */}
               {selectedImage.type === 'image' && (
                 <img
                   src={selectedImage.src}
                   alt={selectedImage.title}
                   className="
-                    w-full
+                    max-w-full
+                    max-h-[78vh]
+                    w-auto
                     h-auto
-                    max-h-[80vh]
                     object-contain
                     rounded-3xl
                     shadow-2xl
@@ -348,16 +729,19 @@ const Gallery: React.FC = () => {
                 />
               )}
 
-              {/* Selected video */}
+              {/* VIDEO LIGHTBOX */}
               {selectedImage.type === 'video' && (
                 <video
+                  key={selectedImage.src}
                   src={selectedImage.src}
                   controls
                   autoPlay
                   playsInline
                   className="
-                    w-full
-                    max-h-[80vh]
+                    max-w-full
+                    max-h-[78vh]
+                    w-auto
+                    h-auto
                     object-contain
                     rounded-3xl
                     shadow-2xl
@@ -366,31 +750,45 @@ const Gallery: React.FC = () => {
                 />
               )}
 
-              {/* Caption */}
-              <div className="
-                mt-6
-                flex
-                justify-between
-                items-center
-                text-white
-              ">
+              {/* CAPTION */}
+              <div
+                className="
+                  mt-5
+                  w-full
+                  flex
+                  justify-between
+                  items-center
+                  text-white
+                  px-2
+                "
+              >
                 <div>
-                  <h3 className="
-                    text-2xl
-                    font-800
-                    font-display
-                  ">
+                  <h3
+                    className="
+                      text-xl
+                      md:text-2xl
+                      font-800
+                      font-display
+                    "
+                  >
                     {selectedImage.title}
                   </h3>
+
+                  <p className="text-sm text-white/50 mt-1">
+                    {selectedImage.type === 'video'
+                      ? 'Video'
+                      : 'Photo'}
+                  </p>
                 </div>
 
-                <div className="
-                  text-sm
-                  text-white/60
-                ">
-                  {selectedImage.type === 'video'
-                    ? 'Video'
-                    : 'Photo'}
+                <div
+                  className="
+                    text-sm
+                    text-white/50
+                    whitespace-nowrap
+                  "
+                >
+                  {selectedIndex + 1} / {IMAGES.length}
                 </div>
               </div>
 
